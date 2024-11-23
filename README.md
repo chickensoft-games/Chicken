@@ -10,6 +10,8 @@ Chicken is a 3D model of the Chickensoft mascot. You know Chicken, you love Chic
 
 You are welcome to use Chicken in your own projects! Please just leave an attribution somewhere in your project files or credits if you use the Chickensoft mascot model. Note that the animations themselves are completely free to use without any attribution required.
 
+https://github.com/user-attachments/assets/b0d09567-ef9a-47ca-9c12-2c764cf2caf7
+
 > [!TIP]
 > Looking for a friend to go with Chicken? Check out the [Godot Plush][godot-plush] 3D character.
 

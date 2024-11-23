@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b4ddtllnusim3"]
+
+[ext_resource type="Shader" path="res://components/chickensoft_skin/materials/chickensoft_color.gdshader" id="1_ypcbh"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ypcbh")
+shader_parameter/body_color = Color(0.33725, 0.71, 0.213, 1)
+shader_parameter/leg_color = Color(0.884484, 0.794057, 0.622133, 1)
+shader_parameter/comb_color = Color(0.642559, 0.416369, 0.283843, 1)
+shader_parameter/specular = 0.6
+shader_parameter/roughness = 0.65

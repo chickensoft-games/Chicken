@@ -1,0 +1,74 @@
+[gd_scene load_steps=16 format=3 uid="uid://c2dp4v0sqt3fp"]
+
+[ext_resource type="Script" path="res://components/player/vfx/self_destroy_particles.gd" id="1_byqr5"]
+[ext_resource type="Shader" path="res://components/player/vfx/base_smoke.gdshader" id="1_fpnhy"]
+
+[sub_resource type="Gradient" id="Gradient_mve45"]
+colors = PackedColorArray(0.470076, 0.470076, 0.470076, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7we1i"]
+gradient = SubResource("Gradient_mve45")
+
+[sub_resource type="Curve" id="Curve_qe3h4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_cvbmt"]
+curve = SubResource("Curve_qe3h4")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oprkv"]
+noise_type = 2
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vidi4"]
+invert = true
+seamless = true
+noise = SubResource("FastNoiseLite_oprkv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oqb81"]
+render_priority = 0
+shader = ExtResource("1_fpnhy")
+shader_parameter/noise_scale = 0.2
+shader_parameter/edge = 0.1
+shader_parameter/smoothness = 0.5
+shader_parameter/energy = 1.0
+shader_parameter/noise_sampler = SubResource("NoiseTexture2D_vidi4")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_7we1i")
+shader_parameter/height_fade = SubResource("CurveTexture_cvbmt")
+
+[sub_resource type="Curve" id="Curve_crwsf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_tgthx"]
+curve = SubResource("Curve_crwsf")
+
+[sub_resource type="Curve" id="Curve_wbd3k"]
+_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lk072"]
+curve = SubResource("Curve_wbd3k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2gyuk"]
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 0.2, 0)
+scale_curve = SubResource("CurveTexture_lk072")
+alpha_curve = SubResource("CurveTexture_tgthx")
+anim_speed_min = 0.01
+anim_speed_max = 0.03
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_e1ttn"]
+
+[node name="JumpParticles" type="GPUParticles3D"]
+material_override = SubResource("ShaderMaterial_oqb81")
+cast_shadow = 0
+amount = 4
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_2gyuk")
+draw_pass_1 = SubResource("QuadMesh_e1ttn")
+script = ExtResource("1_byqr5")

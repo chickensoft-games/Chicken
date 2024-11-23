@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0b71d2b1hdp6"]
+
+[ext_resource type="Script" path="res://components/orbit_control/orbit_view.gd" id="1_hg1yw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wgugf"]
+
+[node name="OrbitView" type="SpringArm3D"]
+shape = SubResource("SphereShape3D_wgugf")
+spring_length = 8.0
+script = ExtResource("1_hg1yw")
+min_limit_x = -1.39626
+max_limit_x = 0.174533
+
+[node name="Camera3D" type="Camera3D" parent="."]
+fov = 50.0

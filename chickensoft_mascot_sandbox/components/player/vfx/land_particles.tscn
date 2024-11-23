@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://clufifu3bdsfu"]
+
+[ext_resource type="Material" uid="uid://fkuklawrv3wp" path="res://components/player/vfx/dust_mat.tres" id="1_11toi"]
+[ext_resource type="Script" path="res://components/player/vfx/self_destroy_particles.gd" id="2_ljaw4"]
+
+[sub_resource type="Curve" id="Curve_v2cdq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ak4ta"]
+curve = SubResource("Curve_v2cdq")
+
+[sub_resource type="Curve" id="Curve_cpcnh"]
+_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_evn48"]
+curve = SubResource("Curve_cpcnh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mohek"]
+direction = Vector3(0, 0, 1)
+spread = 180.0
+flatness = 1.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0.2, 0)
+scale_curve = SubResource("CurveTexture_evn48")
+alpha_curve = SubResource("CurveTexture_ak4ta")
+anim_speed_min = 0.01
+anim_speed_max = 0.03
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_e1ttn"]
+
+[node name="LandParticles" type="GPUParticles3D"]
+material_override = ExtResource("1_11toi")
+cast_shadow = 0
+amount = 6
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_mohek")
+draw_pass_1 = SubResource("QuadMesh_e1ttn")
+script = ExtResource("2_ljaw4")

@@ -1,0 +1,9 @@
+.godot/
+bin/
+obj/
+.generated/
+.vs/
+.DS_Store
+
+*.translation
+node_modules/

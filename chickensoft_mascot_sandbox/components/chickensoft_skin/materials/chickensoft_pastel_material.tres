@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dxx6h44asdvrl"]
+
+[ext_resource type="Shader" path="res://components/chickensoft_skin/materials/chickensoft_color.gdshader" id="1_5hgli"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_5hgli")
+shader_parameter/body_color = Color(0.896373, 0.916103, 0.928301, 1)
+shader_parameter/leg_color = Color(0.6279, 0.759547, 0.91, 1)
+shader_parameter/comb_color = Color(1, 0.48, 0.74, 1)
+shader_parameter/specular = 0.6
+shader_parameter/roughness = 0.65

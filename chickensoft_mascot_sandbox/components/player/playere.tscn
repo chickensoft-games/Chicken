@@ -1,0 +1,104 @@
+[gd_scene load_steps=17 format=3 uid="uid://cl3ty3n05gkux"]
+
+[ext_resource type="Script" path="res://components/player/player.gd" id="1_ms4x1"]
+[ext_resource type="PackedScene" uid="uid://c0b71d2b1hdp6" path="res://components/orbit_control/orbit_view.tscn" id="3_hcr6r"]
+[ext_resource type="Material" uid="uid://fkuklawrv3wp" path="res://components/player/vfx/dust_mat.tres" id="4_j7qt1"]
+[ext_resource type="AudioStream" uid="uid://b7q12qmsksbc7" path="res://assets/sounds/footstep_concrete_000.ogg" id="5_8ixl8"]
+[ext_resource type="AudioStream" uid="uid://c6unhc5lontfn" path="res://assets/sounds/footstep_concrete_001.ogg" id="6_nlp36"]
+[ext_resource type="AudioStream" uid="uid://byg4lkp3ws8kt" path="res://assets/sounds/footstep_concrete_002.ogg" id="7_4283i"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhngq"]
+
+[sub_resource type="Curve" id="Curve_wrw8f"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_nkt4p"]
+curve = SubResource("Curve_wrw8f")
+
+[sub_resource type="Curve" id="Curve_gyl8p"]
+_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hp6hj"]
+curve = SubResource("Curve_gyl8p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dhnoe"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 0.25
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0.2, 0)
+scale_curve = SubResource("CurveTexture_hp6hj")
+alpha_curve = SubResource("CurveTexture_nkt4p")
+anim_speed_min = 0.01
+anim_speed_max = 0.03
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_bw4i7"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_sxclc"]
+random_pitch = 1.2
+streams_count = 3
+stream_0/stream = ExtResource("5_8ixl8")
+stream_1/stream = ExtResource("6_nlp36")
+stream_2/stream = ExtResource("7_4283i")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3vpnr"]
+random_pitch = 1.2
+streams_count = 3
+stream_0/stream = ExtResource("5_8ixl8")
+stream_1/stream = ExtResource("6_nlp36")
+stream_2/stream = ExtResource("7_4283i")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fvg16"]
+random_pitch = 1.2
+streams_count = 1
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_ms4x1")
+
+[node name="VisualRoot" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="GodotPlushSkin" parent="VisualRoot"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_xhngq")
+
+[node name="OrbitView" parent="." instance=ExtResource("3_hcr6r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MovementDust" type="GPUParticles3D" parent="."]
+unique_name_in_owner = true
+material_override = ExtResource("4_j7qt1")
+cast_shadow = 0
+lifetime = 0.8
+process_material = SubResource("ParticleProcessMaterial_dhnoe")
+draw_pass_1 = SubResource("QuadMesh_bw4i7")
+
+[node name="FootStepAudio" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_sxclc")
+max_polyphony = 3
+
+[node name="ImpactAudio" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_3vpnr")
+volume_db = 5.0
+max_polyphony = 3
+
+[node name="WaveAudio" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_fvg16")

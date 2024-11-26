@@ -33,7 +33,7 @@ If you want to contribute more animations, please open a PR with the animations 
 
 ## ⚖️ LICENSE
 
-The model and animations are licensed under different licences.
+The model and animations are licensed under different licenses.
 
 ### Chickensoft Mascot Model
 
